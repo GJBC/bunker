@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<!--  -->
+
+<!-- Commentaires : voici un commentaire HTML.
+	 Tous les commentaires s'affichent en vert dans Notepad++.
+	 Les commentaires sont ignorés par l'interpréteur (=le navigateur).
+	 Tu peux donc marquer ce que tu veux dedans ! -->
+
+<!-- Représente la page. -->
+<html>
+	<!-- Contient toutes les métadonnées du document : les en-têtes HTML. -->
+	<head>
+		<meta charset="utf-8" /> <!-- Déclare l'encodage du document. Tous tes fichiers doivent être encodés en UTF-8 (sans-DOM). Pour vérifier l'encodage, onglet 'Encoding' de Notepad++. -->
+		<title>Index - Apprendre le HTML</title> <!-- Déclare le titre du document. Sera affiché dans le navigateur au niveau de l'onglet, et également dans les résultats de recherche de Google. -->
+		<link rel="stylesheet" type="text/css" href="css/index.css" /> <!-- Déclare une feuille de style pour le document. -->
+	</head>
+	
+	<!-- Représente le corps de la page. -->
+	<body>
+		<div class="container" >
+			<h1>
+				<strong>HTML5 & CSS3</strong>
+				<br />structurer et mettre en forme une page web.
+				<br /><span class="sous-titre" >Page d'accueil (index.html)</span>
+			</h1>
+			
+			<p>
+				<!-- J'utilise la balise img dans un paragraphe et non pas dans une figure 
+				car elle n'a pas de sens important à elle toute seule (elle est là juste pour faire joli en clair). -->
+				<img id="interrog" src="img/interrog.png" alt="?" ></img>
+				Récap (non exaustif) de toutes les balises et propriétés essentielles.
+				Tout est abondamment abreuvé de commentaires. J'y ai aussi mis des propriétés que je ne t'avais pas présentées.
+				<br /><strong>L'important n'est pas d'apprendre tout par coeur, 
+				mais de bien retenir ce qui existe pour pouvoir le retrouver facilement.</strong>
+				<br/>Bidouille autant que tu peux avec ça.
+			</p>
+			
+			<h2>Les paragraphes</h2>
+			<p>
+				Les paragraphes servent à contenir du texte. 
+				On peut y mettre des images, du <strong>texte important</strong>, 
+				ou du texte <em>moins important mais important quand même, ...</em>
+				Le texte peut contenir des liens <a href="http://fr.lipsum.com/" >vers d'autres sites</a>, vers d'<a href="page2.html" >autres pages de ce site</a>, etc. 
+				On peut même viser directement <a href="http://fr.wikipedia.org/wiki/Hypertext_Markup_Language#Description_de_HTML" >une ancre dans une page.</a>
+				
+				<br/><br/>On peut sauter des lignes.<br/><br/>
+				Mais pas pour faire joli ou pour positionner des éléments (on pourra faire ça avec CSS), 
+				juste quand ça a du sens (à la fin d'une phrase, etc.).
+			</p>
+			<p>
+				On remarque que par défaut entre chaque paragraphe il y a des marges qui font un effet "saut de ligne", 
+				mais ce n'est que par défaut.
+			</p>
+			
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec neque erat, euismod quis tellus lobortis, iaculis aliquet elit. Mauris faucibus enim in justo ultricies aliquet. Cras eget erat quis diam malesuada interdum. Suspendisse vel elit et orci finibus placerat. Etiam quis pharetra nibh, fringilla imperdiet tortor. Ut lorem dolor, sodales sit amet condimentum bibendum, lacinia id ante. Cras lacinia leo nunc, in luctus augue finibus sed. Phasellus consequat, orci ac elementum congue, felis leo rhoncus elit, tincidunt convallis dui est at sem. Phasellus nec nunc dictum, aliquet tellus quis, consequat ligula. Sed sollicitudin tortor eget placerat dapibus. Integer dignissim, eros eget consectetur porta, ipsum risus molestie turpis, vel tincidunt ex nunc vel tellus.</p>
+			<p>Nam viverra, massa eget ultrices bibendum, ligula metus dapibus metus, ac pulvinar ipsum odio ac ligula. Vivamus ullamcorper suscipit nibh, ut pharetra libero consequat non. Etiam fringilla ligula sagittis leo ultricies, id euismod ipsum porta. Donec in tempus est, eget tristique elit. Aenean sodales felis ut elementum dictum. Proin ultricies odio quam, eget volutpat orci lobortis quis. Morbi rutrum diam congue imperdiet porttitor. Suspendisse commodo convallis mollis. Duis fringilla vel ligula quis consectetur. Proin bibendum, ipsum nec fringilla facilisis, massa metus viverra ipsum, vitae iaculis leo velit eget est. Sed eu tellus bibendum, sagittis augue eget, rutrum mauris. Ut ut turpis commodo, faucibus enim nec, posuere dui.</p>
+			
+			<p>
+				Au programme la prochaine fois :
+				<ul>
+					<li>les unités</li>
+					<li>les couleurs</li>
+					<li>background-image</li>
+					<li>les polices</li>
+					<li>le box model</li>
+					<li>le positionnement : relatif, absolu, et fixe (et z-index)</li>
+					<li>les bordures et ombres</li>
+					<li>les pseudo-sélecteurs</li>
+					<li>les blocks sémantiques HTML5</li>
+					<li>display: block, inline, inline-block et autres</li>
+					<li>images et flottaison</li>
+					<li>les balises b, i, u, ...</li>
+					<li>échappement des caractères HTML</li>
+					<li>les tableaux</li>
+					<li>les medias HTML5</li>
+					<li>les media-queries</li>
+				</ul>
+				Après tout ça, on aura presque fini !
+			</p>
+		</div>
+		
+		
+	</body>
+</html>

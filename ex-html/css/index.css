@@ -1,0 +1,53 @@
+/*
+	Commentaires : voici un commentaire CSS.
+	Tous les commentaires s'affichent en vert dans Notepad++.
+	Les commentaires sont ignorés par l'interpréteur (=le navigateur).
+	Tu peux donc marquer ce que tu veux dedans !
+*/
+
+html {
+	background-color: orange; /* Couleur de fond */
+}
+
+.container {
+	min-height: 100px; 	/* Impose une hauteur minimale. Idem pour max-height, min-width, max-width. */
+	width: 800px; 		/* Impose une largeur fixe du block. Idem pour height. */
+	margin: auto; 		/* Centre le block (rajoute les mêmes marges à droite et à gauche). */
+	border: solid 1px green;
+}
+
+h1 {
+	text-align: center; 	/* Centre le texte à l'intérieur du block. Valeurs : left (par défaut), right, center, justify. */
+	
+	color: black;			/* La couleur du texte. */
+	font-family: "Times New Roman", Serif;	/* Polices */
+	font-size: 1.8em;		/* La taille de la police. Par défaut 1em : 0.5em < 1em < 1.5em < ... */
+	font-weight: normal;	/* Épaisseur du trait : normal (par défaut), bold (gras), ... */
+	font-style: normal;		/* Style de l'écriture : normal (par défaut), italic, oblique. */
+	text-decoration: none;
+}
+
+h1 strong {
+	font-size: 1.2em;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+h1 .sous-titre {
+	font-size: 0.6em;
+	font-style: italic;
+}
+
+p {
+	text-align: justify;
+}
+
+p img#interrog {
+	/* J'impose une taille précise à mon image. 
+	Ne jamais imposer une taille plus grande que la taille réelle, sous peine de pixeliser l'image. */
+	height: 60px;
+	width: 60px;
+	
+	float: left;	/* Fait "flotter" l'image dans le texte, ici à gauche. none (par défaut), left, right, center */
+	/* Utiliser clear: both; pour que le texte d'un élément arrête de flotter. */
+}
