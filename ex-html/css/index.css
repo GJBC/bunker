@@ -6,20 +6,19 @@
 */
 
 html {
-	background-color: orange; /* Couleur de fond */
+	background-color: rgba(255, 198, 93, 1); /* Couleur de fond */
 }
 
 .container {
 	min-height: 100px; 	/* Impose une hauteur minimale. Idem pour max-height, min-width, max-width. */
 	width: 800px; 		/* Impose une largeur fixe du block. Idem pour height. */
 	margin: auto; 		/* Centre le block (rajoute les mêmes marges à droite et à gauche). */
-	border: solid 1px green;
 }
 
 h1 {
 	text-align: center; 	/* Centre le texte à l'intérieur du block. Valeurs : left (par défaut), right, center, justify. */
 	
-	color: black;			/* La couleur du texte. */
+	color: ;			/* La couleur du texte. */
 	font-family: "Times New Roman", Serif;	/* Polices */
 	font-size: 1.8em;		/* La taille de la police. Par défaut 1em : 0.5em < 1em < 1.5em < ... */
 	font-weight: normal;	/* Épaisseur du trait : normal (par défaut), bold (gras), ... */
