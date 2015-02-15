@@ -4,6 +4,16 @@ How to use Git
 Les 3 zones de travail :
 ![img/areas.png](img/areas.png)
 
+Configurer Git
+--------------
+
+```bash
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+```
+
+Cf : [la configuration de Git](git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
+
 Gérer son repo
 --------------
 
@@ -72,8 +82,6 @@ git checkout f580
 git checkout HEAD~7
 ```
 
-Cf : [la configuration de Git](git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
-
 Partager le repo
 ----------------
 
@@ -84,19 +92,6 @@ git clone https://github.com/torvalds/linux.git
 
 Lors du clone d'un repo, un remote `origin` est ajouté.
 
-**Récupérer le repo :**
-```bash
-git pull GitHub
-```
-
-:question: `git pull` est un raccourci pour `git fetch` > `git merge`.
-
-**Envoyer le repo :**
-```bash
-git push GitHub master
-git push GitHub master --tags
-```
-
 **Gérer un remote pour le repo :**
 ```bash
 git remote -v
@@ -105,7 +100,26 @@ git remote rename origin GitHub
 git remote remove GitHub
 ```
 
+**Attacher une branche distante :**
+```bash
+git branch --set-upstream-to=origin/master master
+```
+
+**Récupérer le repo :**
+```bash
+git pull
+```
+:question: `git pull` est un raccourci pour `git fetch` > `git merge`.
+
+**Envoyer le repo :**
+```bash
+git push
+git push --tags
+```
 
 Un username par défaut est paramétrable avec `credential.helper`.
 
 
+```bash
+git 
+```
