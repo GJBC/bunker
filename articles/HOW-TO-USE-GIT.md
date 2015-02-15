@@ -4,6 +4,9 @@ How to use Git
 Les 3 zones de travail :
 ![img/areas.png](img/areas.png)
 
+Gérer son repo
+--------------
+
 **Initialiser un repo Git :**
 ```bash
 git init
@@ -46,6 +49,8 @@ Options :
 - `-a` Commiter en indexant les *modifications et suppressions* (pas les nouveaux fichiers).
 - `-m` Préciser en argument le message de commit.
 
+L'éditeur par défaut utilisé pour inscrire les messages de commit est paramétrable avec `core.editor`.
+
 ```bash
 git commit -am "Fix bug #13"
 ```
@@ -57,21 +62,50 @@ git log
 
 Presser `q` pour quitter le log.
 
-Le log est paginé par défaut par Less. 
+Le log est paginé par défaut par Less. Paramétrable avec `core.pager`.
 
 **Se positionner sur un commit passé :**
 ```bash
-git checkout d332
+git checkout f580
+```
+```bash
+git checkout HEAD~7
+```
+
+Cf : [la configuration de Git](git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
+
+Partager le repo
+----------------
+
+**Cloner un repo :**
+```bash
+git clone https://github.com/torvalds/linux.git
+```
+
+Lors du clone d'un repo, un remote `origin` est ajouté.
+
+**Récupérer le repo :**
+```bash
+git pull GitHub
+```
+
+:question: `git pull` est un raccourci pour `git fetch` > `git merge`.
+
+**Envoyer le repo :**
+```bash
+git push GitHub master
+git push GitHub master --tags
+```
+
+**Gérer un remote pour le repo :**
+```bash
+git remote -v
+git remote add origin https://github.com/GJBC/bunker.git
+git remote rename origin GitHub
+git remote remove GitHub
 ```
 
 
+Un username par défaut est paramétrable avec `credential.helper`.
 
 
-
-
-
-
-
-
-
-Cf : [la configuration de Git](git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
