@@ -62,7 +62,7 @@ Options :
 L'éditeur par défaut utilisé pour inscrire les messages de commit est paramétrable avec `core.editor`.
 
 ```bash
-git commit -am "Fix bug #13"
+git commit -am "Fix bug #13546"
 ```
 
 **Afficher l'historique des commits :**
@@ -74,6 +74,51 @@ Presser `q` pour quitter le log.
 
 Le log est paginé par défaut par Less. Paramétrable avec `core.pager`.
 
+Corriger ses erreurs
+--------------------
+
+**Modifier le dernier commit :**
+```bash
+git commit --amend
+```
+
+**Désindexer un fichier :**
+```bash
+git reset HEAD my-file
+```
+
+**Annuler les modifications du Working Directory pour revenir à son état dans la Staging Area :**
+```bash
+git checkout *
+```
+
+**Émettre un commit annulant les changements d'un commit :**
+```bash
+git revert HEAD~7
+```
+
+**Supprimer définitivement un commit :**
+```bash
+git reset HEAD~7
+```
+:exclamation: Ne jamais effacer un commit déjà pushé.
+
+Options :
+- `--soft` Modifie uniquement le dépôt (renvient dans l'état avant `git commit`).
+- `--mixed` (par défaut) Modifie le repo et la Staging Area (renvient dans l'état avant `git add`).
+- `--hard` Modifie le repo, la Staging Area et le Working Directory (perte des modifications).
+
+**Récupérer l'état d'un fichier d'un commit passé :**
+```bash
+git checkout HEAD~7 script.js
+```
+
+Naviguer dans les commits
+-------------------------
+
+Ces actions sont des opérations *read-only*. 
+Utiliser `git checkout master` pour se repositionner sur la branche master.
+
 **Se positionner sur un commit passé :**
 ```bash
 git checkout f580
@@ -81,6 +126,7 @@ git checkout f580
 ```bash
 git checkout HEAD~7
 ```
+
 
 Partager le repo
 ----------------
