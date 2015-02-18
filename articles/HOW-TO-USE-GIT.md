@@ -65,14 +65,88 @@ L'éditeur par défaut utilisé pour inscrire les messages de commit est paramé
 git commit -am "Fix bug #13546"
 ```
 
+**Tagger un commit :**
+```bash
+git tag v1.3 2f7c8b
+```
+
+**Supprimer un tag :**
+```bash
+git tag -d v0.7.14
+```
+
 **Afficher l'historique des commits :**
 ```bash
 git log
 ```
 
-Presser `q` pour quitter le log.
-
 Le log est paginé par défaut par Less. Paramétrable avec `core.pager`.
+Presser `q` pour quitter le log.
+Options :
+- `--stat` Accompagner chaque commit de son `git diff --stat`.
+- `-p` Accompagner chaque commit de tout le patch de son `git diff`.
+- `--oneline` Afficher chaque commit sur une ligne.
+- `--raw` Afficher chaque commit comme stocké dans le commit object.
+
+Il est possible de préciser un path pour afficher tous les commits associés :
+```bash
+git log README.md
+```
+
+**Afficher les modifications effectuées par le dernier commit :**
+```bash
+git diff
+git diff --stat
+```
+
+**Mettre de côté son Working Directory :**
+```bash
+git stash
+git stash show
+```
+Particulièrement utile pour changer de branche au milieu d'un travail en cours, pas prêt pour être commité. 
+Pour récupérer les changements :
+```bash
+git stash apply
+```
+
+Partager le repo
+----------------
+
+**Cloner un repo :**
+```bash
+git clone https://github.com/torvalds/linux.git
+```
+
+Lors du clone d'un repo, un remote `origin` est ajouté.
+
+**Gérer un remote pour le repo :**
+```bash
+git remote -v
+git remote add origin https://github.com/GJBC/bunker.git
+git remote rename origin GitHub
+git remote remove GitHub
+```
+
+**Attacher une branche distante :**
+```bash
+git branch --set-upstream-to=origin/master master
+```
+
+**Récupérer le repo :**
+```bash
+git pull
+```
+:question: `git pull` est un raccourci pour `git fetch` > `git merge`.
+:exclamation: Ne télécharge que la branche distante liée à la branche sur laquelle pointe HEAD.
+
+**Envoyer le repo :**
+```bash
+git push
+git push --tags
+```
+
+Un username par défaut est paramétrable avec `credential.helper`.
 
 Corriger ses erreurs
 --------------------
@@ -81,6 +155,7 @@ Corriger ses erreurs
 ```bash
 git commit --amend
 ```
+:exclamation: Ne jamais modifier un commit déjà pushé.
 
 **Désindexer un fichier :**
 ```bash
@@ -128,43 +203,77 @@ git checkout HEAD~7
 Cette action est une opération *read-only* : Git va se positionner en mode `DETACHED HEAD`.
 Utiliser `git checkout master` pour se repositionner sur la branche master.
 
+Utiliser les branches
+---------------------
 
-Partager le repo
-----------------
-
-**Cloner un repo :**
+**Sortir la liste des branches :**
 ```bash
-git clone https://github.com/torvalds/linux.git
+git branch
 ```
 
-Lors du clone d'un repo, un remote `origin` est ajouté.
-
-**Gérer un remote pour le repo :**
+**Créer une nouvelle branche :**
 ```bash
-git remote -v
-git remote add origin https://github.com/GJBC/bunker.git
-git remote rename origin GitHub
-git remote remove GitHub
+git branch 2.7
 ```
 
-**Attacher une branche distante :**
+**Se positionner sur une branche :**
 ```bash
-git branch --set-upstream-to=origin/master master
+git checkout 2.7
 ```
 
-**Récupérer le repo :**
+**Fusionner une branche dans la branche actuelle :**
 ```bash
-git pull
-```
-:question: `git pull` est un raccourci pour `git fetch` > `git merge`.
-
-**Envoyer le repo :**
-```bash
-git push
-git push --tags
+git merge design_zen
 ```
 
-Un username par défaut est paramétrable avec `credential.helper`.
+**Supprimer une branche :**
+```bash
+git branch -d design_zen
+```
+Utiliser l'option `-D` pour forcer la destruction d'une branche non mergée dans `master`.
+
+**Lister les branches distantes :**
+```bash
+git branch -r
+```
+
+**Traquer une branche distante :**
+```bash
+git branch --track 2.0 origin/2.0
+```
+Il s'agit de créer une branche locale qui va être liée à la branche distante. 
+
+**Supprimer une *remote tracking branch* :**
+```bash
+git branch -r -d origin/2.0
+```
+
+**Ajouter et supprimer une branche sur le serveur :**
+```bash
+git push origin origin:refs/heads/master
+git push origin :heads/master
+```
+
+Le .gitignore
+-------------
+.gitignore est un fichier à mettre à la racine du repo. Git va totalement ignorer tous les fichiers 
+décrits dans le .gitignore. Par exemple :
+```bash
+var/*
+vendor/*
+composer.lock
+.php_cs
+*.tmp
+```
+:exclamation: Les fichiers traqués (déjà indexés) ne seront pas ignorés ! 
+(Git va en quelque sorte ignorer le .gitignore :wink:)
+
+Bonus : effectuer une recherche
+-------------------------------
+```bash
+git grep -n "TODO"
+```
+Git accepte bien sûr les regex !
 
 Annexe : détails sur les commandes
 ----------------------------------
