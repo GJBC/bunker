@@ -22,7 +22,7 @@ Gérer son repo
 git init
 ```
 
-**Obtenir le statut des fichiers (new, modified or removed) du Working Directory (indexation dans la Staging Area) :**
+**Obtenir le statut des fichiers (new, modified or removed) du Working Directory (indexation dans la Staging Area)&nbsp;:**
 ```bash
 git status
 ```
