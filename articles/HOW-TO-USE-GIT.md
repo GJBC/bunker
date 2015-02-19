@@ -138,6 +138,7 @@ git branch --set-upstream-to=origin/master master
 git pull
 ```
 :question: `git pull` est un raccourci pour `git fetch` > `git merge`.
+
 :exclamation: Ne télécharge que la branche distante liée à la branche sur laquelle pointe HEAD.
 
 **Envoyer le repo :**
@@ -288,12 +289,14 @@ Annexe : détails sur les commandes
 	- une branche : `master` ou `refs/heads/master`,
 	- un remote : `origin/master` ou `refs/remotes/origin/master`,
 	- le `HEAD` : `HEAD`.
+
 	Il peut être complété par un suffixe de spécification relative : 
 	- une date : `@{yesterday}`, `@{1 month ago}`,
 	- un sélecteur ordinal : `@{5}` (soit la 5e référence avant celle explicitée), (? rapport avec `git reflog` ?)
 	- un sélecteur ancestral : `~2` ou `^^` (soit le 2e parent de la référence),
 	- un pointeur de commit : `^{tree}` (récupère le sha correspondant à la référence),
 	- un sélecteur de blob : `:/chemin/vers/le/fichier`.
+
 	Les suffixes peuvent bien sûr s'enchaîner.
 - **pathspec** : sélecteur d'un ou plusieurs blobs (ensemble de paths, tout simplement). 
 Exemples : `dir/file.md`, `dir/HOW-*`, `*/vendor/*`, `*.js`.
@@ -314,22 +317,26 @@ git checkout [--detach] <commit>
 ```
 
 Le mode `DETACHED HEAD` : HEAD réfère à un commit au lieu de référer à une branche.
->    HEAD (refers to commit 'b')
->     |
->     v
-> a---b---c---d  branch 'master' (refers to commit 'd')
->     ^
->     |
->   tag 'v2.0' (refers to commit 'b')
+```bash
+   HEAD (refers to commit 'b')
+    |
+    v
+a---b---c---d  branch 'master' (refers to commit 'd')
+    ^
+    |
+  tag 'v2.0' (refers to commit 'b')
+```
 Ici, HEAD réfère directement au commit b. Ainsi, en créant des commits, les nouveaux commits ne sont ajoutés 
 à aucune branche, et sont référencés uniquement par HEAD :
-> 	       HEAD (refers to branch 'master')
->       e---f     |
->      /          v
-> a---b---c---d  branch 'master' (refers to commit 'd')
->     ^
->     |
->   tag 'v2.0' (refers to commit 'b')
+```bash
+	       HEAD (refers to branch 'master')
+      e---f     |
+     /          v
+a---b---c---d  branch 'master' (refers to commit 'd')
+    ^
+    |
+  tag 'v2.0' (refers to commit 'b')
+```
 
 **Récupérer des fichiers dans leur état passé :**
 ```bash
