@@ -12,19 +12,25 @@ git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 ```
 
-Cf : [la configuration de Git](git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
+Cf : [la configuration de Git](http://git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
 
-Gérer son repo
---------------
+Effectuer des commits
+---------------------
 
 **Initialiser un repo Git :**
 ```bash
 git init
 ```
 
-**Obtenir le statut des fichiers (new, modified or removed) du Working Directory (indexation dans la Staging Area)&nbsp;:**
+**Obtenir le statut du repo :**
 ```bash
 git status
+```
+
+**Comparer le Working Directory et la Staging Area :**
+```bash
+git diff
+git diff --stat
 ```
 
 **Indexer l'état d'un fichier dans la Staging Area :**
@@ -75,30 +81,6 @@ git tag v1.3 2f7c8b
 git tag -d v0.7.14
 ```
 
-**Afficher l'historique des commits :**
-```bash
-git log
-```
-
-Le log est paginé par défaut par Less. Paramétrable avec `core.pager`.
-Presser `q` pour quitter le log.
-Options :
-- `--stat` Accompagner chaque commit de son `git diff --stat`.
-- `-p` Accompagner chaque commit de tout le patch de son `git diff`.
-- `--oneline` Afficher chaque commit sur une ligne.
-- `--raw` Afficher chaque commit comme stocké dans le commit object.
-
-Il est possible de préciser un path pour afficher tous les commits associés :
-```bash
-git log README.md
-```
-
-**Afficher les modifications effectuées par le dernier commit :**
-```bash
-git diff
-git diff --stat
-```
-
 **Mettre de côté son Working Directory :**
 ```bash
 git stash
@@ -139,7 +121,7 @@ git pull
 ```
 :question: `git pull` est un raccourci pour `git fetch` > `git merge`.
 
-:exclamation: Ne télécharge que la branche distante liée à la branche sur laquelle pointe HEAD.
+:exclamation: Ne merge que la branche distante liée à la branche sur laquelle pointe HEAD.
 
 **Envoyer le repo :**
 ```bash
@@ -147,7 +129,48 @@ git push
 git push --tags
 ```
 
-Un username par défaut est paramétrable avec `credential.helper`.
+:exclamation: Un push doit toujours merger en *fast-forward*, c'est-à-dire ajouter les nouveaux commits 
+directement à la suite de la branche sans avoir à intercaller les commits et gérer les éventuels conflits. 
+La branche locale doit donc toujours être mise à jour grâce à `git pull` avant d'être pushée. Afin de ne 
+pas polluer l'historique d'une fausse fusion lors du pull, il est préférable d'effectuer un *rebasing*. 
+Cf la partie consacrée : [Travailler avec `git rebase`](#travailler-avec-git-rebase).
+
+Le stockage ou la mise en cache des identifiants est paramétrable avec `credential.helper` :
+```bash
+git config --global credential.https://github.com.username Zzortell
+```
+
+Naviguer dans les commits
+-------------------------
+
+**Afficher l'historique des commits :**
+```bash
+git log
+```
+
+Le log est paginé par défaut par Less. Paramétrable avec `core.pager`.
+Presser `q` pour quitter le log.
+Options :
+- `--stat` Accompagner chaque commit de son `git diff --stat`.
+- `-p` Accompagner chaque commit de tout le patch de son `git diff`.
+- `--oneline` Afficher chaque commit sur une ligne.
+- `--raw` Afficher chaque commit comme stocké dans le commit object.
+
+Il est possible de préciser un path pour afficher tous les commits associés :
+```bash
+git log README.md
+```
+
+**Se positionner sur un commit passé :**
+```bash
+git checkout f580
+```
+```bash
+git checkout HEAD~7
+```
+
+Cette action est une opération *read-only* : Git va se positionner en mode `DETACHED HEAD`.
+Utiliser `git checkout master` pour se repositionner sur la branche master.
 
 Corriger ses erreurs
 --------------------
@@ -162,6 +185,7 @@ git commit --amend
 ```bash
 git reset HEAD my-file
 ```
+:question: Cette opération est l'inverse de `git add`. 
 
 **Annuler les modifications du Working Directory pour revenir à son état dans la Staging Area :**
 ```bash
@@ -190,22 +214,8 @@ Modes :
 git checkout HEAD~7 script.js
 ```
 
-Naviguer dans les commits
--------------------------
-
-**Se positionner sur un commit passé :**
-```bash
-git checkout f580
-```
-```bash
-git checkout HEAD~7
-```
-
-Cette action est une opération *read-only* : Git va se positionner en mode `DETACHED HEAD`.
-Utiliser `git checkout master` pour se repositionner sur la branche master.
-
-Utiliser les branches
----------------------
+Travailler avec les branches
+----------------------------
 
 **Sortir la liste des branches :**
 ```bash
@@ -226,6 +236,16 @@ git checkout 2.7
 ```bash
 git merge design_zen
 ```
+:question: Lors d'une fusion, des modifications apportées par les commits des deux branches 
+peuvent rentrer en conflit. Git crée alors dans les fichiers concernés une zone de conflit. Par exemple :
+```bash
+<<<<<<< HEAD:index.html
+<body id="home" lang="en">
+=======
+<body id="home" lang="fr">
+>>>>>>> dev:index.html
+```
+Il faut alors résoudre manuellement les conflits et effectuer un nouveau commit.
 
 **Supprimer une branche :**
 ```bash
@@ -255,6 +275,84 @@ git push origin origin:refs/heads/master
 git push origin :heads/master
 ```
 
+Garder un historique propre
+---------------------------
+
+### Utiliser `git rebase -i` pour unir des commits
+Prenons l'historique suivant :
+```bash
+git log --oneline
+5693149 Rewritte the fixing of #13546
+6498e49 Refix issue #13546
+750ff38 Add some tests for issue #13546
+1932a71 Fix issue #13546
+...
+```
+Ces 4 commits seraient bien mieux ensemble avant de rejoindre le serveur. On peut facilement faire ça avec :
+```bash
+git rebase -i HEAD~4
+```
+Éditer alors le fichier lancé par Git en précédant les commits à unir par `squash` :
+```bash
+pick 5693149 Rewritte the fixing of #13546
+squash 6498e49 Refix issue #13546
+squash 750ff38 Add some tests for issue #13546
+squash 1932a71 Fix issue #13546
+```
+Les 4 commits vont alors être recombinés dans un nouveau commit, par exemple : 
+`0fc4eea Fix issue #13546 and add tests`.
+
+:exclamation: Ne JAMAIS réécrire des commits déjà pushés.
+
+### Travailler avec `git rebase`
+
+:question: Cette section est légèrement complexe, à appréhender avec une bonne maîtrise de tout ce qui 
+précède.
+
+Lorsqu'on travaille sur une branche locale et temporaire, il serait malpropre de merger directement 
+cette branche dans la branche principale. En effet, en ayant un historique divergent comme celui-la : 
+![img/rebase-1.png](img/rebase-1.png)
+un *true merge* brise la linéarité de l'historique : 
+![img/rebase-2.png](img/rebase-2.png)
+Afin de l'éviter, on peut au préalable utiliser `git rebase` pour recommiter `C4` à la suite de `master` :
+```bash
+git checkout experiment
+git rebase -p master
+```
+On obtient donc :
+![img/rebase-3.png](img/rebase-3.png)
+Il ne reste plus qu'à merger `experiment` dans `master`, maintenant en *fast-forward* :
+```bash
+git checkout master
+git merge experiment
+```
+On obtient ainsi finalement un historique parfaitement propre : 
+![img/rebase-4.png](img/rebase-4.png).
+
+:exclamation: `git rebase` va réémettre de façon linéaire tous les commits et détruire par la même occasion
+toute arborescence complexe (non linéaire) de la branche rebasée. Il est donc important de toujours préciser 
+l'option `-p` afin de préserver les liens qu'ont les commits entre eux.
+
+Cela est également utile lors d'un pull (avant un push de notre travail par exemple) alors que 
+d'autres commits ont été pushés entre temps sur la branche distante. En effet avec un pull habituel, 
+Git effectue un *true merge* de la branche distante dans la branche locale, ce qui a pour effet 
+d'inscrire dans l'historique une fausse fusion. Il est préférable de réécrire l'historique puis 
+de fusionner les branches en *fast-forward* en appelant `git pull --rebase=preserve`. De manière générale, 
+il est pertinent de configurer Git pour toujours effectuer des pulls avec rebase (et bien sûr l'option 
+--preserve) :
+```bash
+git config --global pull.rebase preserve
+```
+
+:question: Par défaut, `git merge` effectuera un *fast-forward merge* si aucun commit n'a été rajouté sur 
+la branche principale. Mais attention, cela peut se retourner contre nous si on souhaite réellement 
+fusionner une branche secondaire dans la branche principale. Utiliser dans ce cas là l'option `--no-ff`.
+
+:exclamation: Ne JAMAIS réécrire des commits déjà pushés. `git rebase` est réservé au replacement 
+de commits locaux sur la branche principale.
+
+Cf : [Git Attitude : Bien utiliser git merge et rebase](http://www.git-attitude.fr/2014/05/04/bien-utiliser-git-merge-et-rebase/).
+
 Le .gitignore
 -------------
 .gitignore est un fichier à mettre à la racine du repo. Git va totalement ignorer tous les fichiers 
@@ -278,6 +376,8 @@ Git accepte bien sûr les regex !
 
 Annexe : détails sur les commandes
 ----------------------------------
+
+Voici quelques détails sur les signatures de certaines commandes très versatiles (polyvalentes). Mais avant...
 
 ### Vocabulaire : un peu de théorie
 
@@ -346,8 +446,27 @@ Si <tree-ish> n'est pas spécifié, opère à partir de l'index.
 
 ### `git reset`
 
-
-
+**Rétablir un état du Working Directory en supprimant définitivement les commits intermédiaires :**
 ```bash
-git 
+git reset [<mode>] [<commit>]
 ```
+:exclamation: À bien sûr ne pas utiliser si les commits ont déjà été pushés. Déconseillé de manière générale.
+Utiliser `git revert`, la "méthode douce", pour annuler les modifications de commit par de nouveaux commits.
+
+Modes :
+- `--soft` Modifie uniquement le dépôt (renvient dans l'état avant `git commit`).
+- `--mixed` (par défaut) Modifie le repo et la Staging Area (renvient dans l'état avant `git add`).
+- `--hard` Modifie le repo, la Staging Area et le Working Directory (perte des modifications). :exclamation:
+
+**Récupérer dans l'index l'état des fichiers :**
+```bash
+git reset [<tree-ish>] <paths>
+```
+:question: Ainsi, `git reset <paths>` est l'inverse de `git add <paths>`. 
+`git reset [<tree-ish>] <paths>` est  à la Staging Area ce que `git checkout [<tree-ish>] <pathspec>` est au Working Directory.
+
+Le mode `-p` permet de sélectionner de façon interactive les blocs à rétablir qui diffèrent entre les patchs de l'index et du <tree-ish>.
+```bash
+git reset -p [<tree-ish>] [<paths>]
+```
+Ainsi, `git reset -p` est l'inverse de `git add -p`. 
