@@ -1,6 +1,13 @@
 How to use Git
 ==============
 
+Git est un outil de gestion et de partage de versions robuste et très puissant. 
+Ce n'est pas un hasard si en Swahili, « Git » signifie « divinité toute puissante à la sagacité du renard, 
+la volupté de l'hippopotame et la virilité du bonobo ». 
+Cependant Git peut se révéler très complexe. C'est pourquoi j'ai plongé quelques jours dans les tréfonds de 
+sa documentation pour rédiger cet article, cette fiche, ce guide qui me permettra à l'avenir je l'espère 
+de pouvoir utiliser Git avec sérénité, efficacité et aisance.
+
 Les 3 zones de travail :
 ![img/areas.png](img/areas.png)
 
@@ -238,7 +245,7 @@ git merge design_zen
 ```
 :question: Lors d'une fusion, des modifications apportées par les commits des deux branches 
 peuvent rentrer en conflit. Git crée alors dans les fichiers concernés une zone de conflit. Par exemple :
-```bash
+```
 <<<<<<< HEAD:index.html
 <body id="home" lang="en">
 =======
@@ -280,7 +287,7 @@ Garder un historique propre
 
 ### Utiliser `git rebase -i` pour unir des commits
 Prenons l'historique suivant :
-```bash
+```
 git log --oneline
 5693149 Rewritte the fixing of #13546
 6498e49 Refix issue #13546
@@ -293,7 +300,7 @@ Ces 4 commits seraient bien mieux ensemble avant de rejoindre le serveur. On peu
 git rebase -i HEAD~4
 ```
 Éditer alors le fichier lancé par Git en précédant les commits à unir par `squash` :
-```bash
+```
 pick 5693149 Rewritte the fixing of #13546
 squash 6498e49 Refix issue #13546
 squash 750ff38 Add some tests for issue #13546
@@ -311,9 +318,13 @@ précède.
 
 Lorsqu'on travaille sur une branche locale et temporaire, il serait malpropre de merger directement 
 cette branche dans la branche principale. En effet, en ayant un historique divergent comme celui-la : 
+
 ![img/rebase-1.png](img/rebase-1.png)
+
 un *true merge* brise la linéarité de l'historique : 
+
 ![img/rebase-2.png](img/rebase-2.png)
+
 Afin de l'éviter, on peut au préalable utiliser `git rebase` pour recommiter `C4` à la suite de `master` :
 ```bash
 git checkout experiment
@@ -321,11 +332,13 @@ git rebase -p master
 ```
 On obtient donc :
 ![img/rebase-3.png](img/rebase-3.png)
+
 Il ne reste plus qu'à merger `experiment` dans `master`, maintenant en *fast-forward* :
 ```bash
 git checkout master
 git merge experiment
 ```
+
 On obtient ainsi finalement un historique parfaitement propre : 
 ![img/rebase-4.png](img/rebase-4.png).
 
@@ -357,7 +370,7 @@ Le .gitignore
 -------------
 .gitignore est un fichier à mettre à la racine du repo. Git va totalement ignorer tous les fichiers 
 décrits dans le .gitignore. Par exemple :
-```bash
+```
 var/*
 vendor/*
 composer.lock
@@ -404,20 +417,20 @@ Exemples : `dir/file.md`, `dir/HOW-*`, `*/vendor/*`, `*.js`.
 ### `git checkout`
 
 **Placer `HEAD` sur une autre branche :**
-```bash
+```
 git checkout <branch>
 git checkout -b <new_branch>
 ```
 L'option `-b` est une contraction de `git branch`.
 
 **Inspecter les arborescences en mode `DETACHED HEAD` :**
-```bash
+```
 git checkout --detach [<branch>]
 git checkout [--detach] <commit>
 ```
 
 Le mode `DETACHED HEAD` : HEAD réfère à un commit au lieu de référer à une branche.
-```bash
+```
    HEAD (refers to commit 'b')
     |
     v
@@ -428,7 +441,7 @@ a---b---c---d  branch 'master' (refers to commit 'd')
 ```
 Ici, HEAD réfère directement au commit b. Ainsi, en créant des commits, les nouveaux commits ne sont ajoutés 
 à aucune branche, et sont référencés uniquement par HEAD :
-```bash
+```
 	       HEAD (refers to branch 'master')
       e---f     |
      /          v
@@ -439,15 +452,15 @@ a---b---c---d  branch 'master' (refers to commit 'd')
 ```
 
 **Récupérer des fichiers dans leur état passé :**
-```bash
+```
 git checkout [<tree-ish>] <pathspec>
 ```
-Si <tree-ish> n'est pas spécifié, opère à partir de l'index.
+Si `<tree-ish>` n'est pas spécifié, opère à partir de l'index.
 
 ### `git reset`
 
 **Rétablir un état du Working Directory en supprimant définitivement les commits intermédiaires :**
-```bash
+```
 git reset [<mode>] [<commit>]
 ```
 :exclamation: À bien sûr ne pas utiliser si les commits ont déjà été pushés. Déconseillé de manière générale.
@@ -459,14 +472,14 @@ Modes :
 - `--hard` Modifie le repo, la Staging Area et le Working Directory (perte des modifications). :exclamation:
 
 **Récupérer dans l'index l'état des fichiers :**
-```bash
+```
 git reset [<tree-ish>] <paths>
 ```
 :question: Ainsi, `git reset <paths>` est l'inverse de `git add <paths>`. 
 `git reset [<tree-ish>] <paths>` est  à la Staging Area ce que `git checkout [<tree-ish>] <pathspec>` est au Working Directory.
 
-Le mode `-p` permet de sélectionner de façon interactive les blocs à rétablir qui diffèrent entre les patchs de l'index et du <tree-ish>.
-```bash
+Le mode `-p` permet de sélectionner de façon interactive les blocs à rétablir qui diffèrent entre les patchs de l'index et du `<tree-ish>`.
+```
 git reset -p [<tree-ish>] [<paths>]
 ```
 Ainsi, `git reset -p` est l'inverse de `git add -p`. 
