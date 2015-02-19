@@ -6,24 +6,51 @@ Ouvrir un prompt DOS
 
 Pour ouvrir l'invite de commandes, il existe plusieurs moyens :
 - taper `cmd` dans la barre de recherche.
+- dans Windows 8, y accèder par un clic droit sur le coin réactif du menu Démarrer.
 - accèder directement à un dossier avec `MAJ` + `clic-droit` > `Ouvrir une fenêtre de commandes ici`.
 
-Les commandes MS-DOS (=de base)
--------------------------------
+Les commandes de base
+---------------------
 
-**Change directory:**
+**Afficher la liste des commandes :**
+```bash
+help
+```
+
+**Afficher des détails sur l'utilisation d'une commande :**
+```bash
+help help
+```
+
+**Print directory:**
 ```bash
 dir my-dir
 ```
 
-**Copy a file:**
+**Change directory:**
 ```bash
-copy my-file to-my-new-file
+cd my-dir
 ```
 
-**Move a file:**
+**Make directory :**
 ```bash
-move my-file to-my-new-file
+md new-dir
+```
+
+**Remove directory :**
+```bash
+rd dir
+```
+
+**Display a file : **
+```bash
+type my-file
+```
+
+**Create or edit a file :**
+```bash
+notepad file
+notepad++ file
 ```
 
 **Delete a file :**
@@ -31,14 +58,24 @@ move my-file to-my-new-file
 del my-file
 ```
 
+**Copy a file:**
+```bash
+copy my-file to-my-new-file
+```
+
+**Copy files and directories :**
+```bash
+xcopy
+```
+
+**Move a file:**
+```bash
+move my-file to-my-new-file
+```
+
 **Rename a file:**
 ```bash
 ren my-file to-my-new-file
-```
-
-**Edit a file :**
-```bash
-edit my-file
 ```
 
 **Clear the terminal:**
@@ -49,4 +86,33 @@ cls
 **Quit the promt DOS:**
 ```bash
 exit
+```
+
+**Start a prompt DOS:**
+```bash
+start
+```
+
+**Afficher le graphisme de la structure de répertoire d'un lecteur ou d'un chemin d'accès :**
+```bash
+tree
+```
+
+**Modifier la variable environnement PATH :**
+```bash
+path
+help path
+```
+Pas besoin du mot de passe admin !! (Une faille dans le système, hum... Je me demande s'il y en a d'autres. En tout cas super pratique !)
+Dans le même genre existe la commande `set` pour définir des variables d'environnement.
+
+**Afficher la version de Windows :**
+```bash
+ver
+```
+Voilà qui est totalement useless ^^
+
+**Arrêter l'ordinateur :**
+```bash
+shutdown /s
 ```
