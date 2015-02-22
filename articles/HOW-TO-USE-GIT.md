@@ -5,7 +5,7 @@ Git est un outil de gestion et de partage de versions robuste et très puissant.
 Ce n'est pas un hasard si en Swahili, « Git » signifie « divinité toute puissante à la sagacité du renard, 
 la volupté de l'hippopotame et la virilité du bonobo ». 
 Cependant Git peut se révéler très complexe. C'est pourquoi j'ai plongé quelques jours dans les tréfonds de 
-sa documentation pour rédiger cet article, cette fiche, ce guide qui me permettra à l'avenir je l'espère 
+sa documentation pour rédiger cet article, cet aide-mémoire, ce guide qui me permettra à l'avenir je l'espère 
 de pouvoir utiliser Git avec sérénité, efficacité et aisance.
 
 Les 3 zones de travail :
@@ -128,19 +128,28 @@ git pull
 ```
 :question: `git pull` est un raccourci pour `git fetch` > `git merge`.
 
-:exclamation: Ne merge que la branche distante liée à la branche sur laquelle pointe HEAD.
+:exclamation: Ne récupère que la branche distante liée à la branche sur laquelle pointe HEAD. 
+De plus, afin de ne pas avoir à polluer l'historique d'une fausse fusion lors du pull, il est préférable 
+d'effectuer un *rebasing*. 
+Cf la partie consacrée : [Travailler avec `git rebase`](#travailler-avec-git-rebase). 
+:question: Il existe un outil pour pallier à tous ces inconvénients, malheuresement imcompatible avec 
+Windows : [aanand/git-up](https://github.com/aanand/git-up).
 
 **Envoyer le repo :**
 ```bash
 git push
-git push --tags
 ```
+
+Par défaut, seule la branche sur laquelle pointe HEAD est envoyée. Options :
+- `--tags` Pour envoyer tous les tags.
+- `--all` Pour envoyer toutes les branches.
+- `--mirror` Envoie **toutes** les références et **force** la mise  à jour. 
+	:exclamation: Dangereux, à manipuler avec précaution.
+- `-u` Pour chaque branche envoyée avec succès, ajoute une *upstream reference*.
 
 :exclamation: Un push doit toujours merger en *fast-forward*, c'est-à-dire ajouter les nouveaux commits 
 directement à la suite de la branche sans avoir à intercaller les commits et gérer les éventuels conflits. 
-La branche locale doit donc toujours être mise à jour grâce à `git pull` avant d'être pushée. Afin de ne 
-pas polluer l'historique d'une fausse fusion lors du pull, il est préférable d'effectuer un *rebasing*. 
-Cf la partie consacrée : [Travailler avec `git rebase`](#travailler-avec-git-rebase).
+La branche locale doit donc toujours être mise à jour grâce à `git pull` avant d'être pushée.
 
 Le stockage ou la mise en cache des identifiants est paramétrable avec `credential.helper` :
 ```bash
