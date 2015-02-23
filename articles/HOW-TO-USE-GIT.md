@@ -19,13 +19,44 @@ git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 ```
 
+**Configurer l'éditeur par défaut :**
+```bash
+git config --global core.editor vim
+git config --global core.editor "notepad++ -multiInst -notabbar -nosession -noPlugin"
+```
+
 **Configurer la gestion automatique des EOL :**
 ```bash
-git config --global core.autocrlf false
+git config --global core.autocrlf input
 git config --global core.eol lf
 ```
-Désactive la conversion des `lf` en `crlf` lors du pull, et configure `lf` pour les EOL. 
-:question: `core.autocrlf input` ne marcherait-il pas avec `core.eol lf` ?
+Désactive la conversion des `lf` en `crlf` lors du pull mais active celle des `crlf` en `lf` 
+lors du `git add` grâce à la configuration `lf` pour les EOL.
+
+Imposer le partage de la norme à tous les contributeurs du repo par leur description dans 
+un fichier de configuration *.gitattributes* :
+```
+* text=auto eol=lf
+```
+Git va alors imposer la normalisation des `lf` dans le repo et empêcher la conversion en `crlf` 
+lors de l'extraction.
+
+:question: La suite de cette section sert à convertir les EOF d'un repo selon la configuration. 
+Totalement inutile si le repo a déjà des EOF corrects.
+
+Pour normaliser ensuite le repo :
+```bash
+git rm --cached -r
+git add .
+git commit -m "Normalize all the line endings"
+```
+
+Pour finir par normaliser le Working Directory :
+```bash
+git reset --hard
+```
+
+Ouf !
 
 Cf : [la configuration de Git](http://git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
 
@@ -79,8 +110,6 @@ git commit
 Options :
 - `-a` Commiter en indexant les *modifications et suppressions* (pas les nouveaux fichiers).
 - `-m` Préciser en argument le message de commit.
-
-L'éditeur par défaut utilisé pour inscrire les messages de commit est paramétrable avec `core.editor`.
 
 ```bash
 git commit -am "Fix bug #13546"
