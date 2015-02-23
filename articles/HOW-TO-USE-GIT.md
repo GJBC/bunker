@@ -19,6 +19,14 @@ git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
 ```
 
+**Configurer la gestion automatique des EOL :**
+```bash
+git config --global core.autocrlf false
+git config --global core.eol lf
+```
+Désactive la conversion des `lf` en `crlf` lors du pull, et configure `lf` pour les EOL. 
+:question: `core.autocrlf input` ne marcherait-il pas avec `core.eol lf` ?
+
 Cf : [la configuration de Git](http://git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
 
 Effectuer des commits
