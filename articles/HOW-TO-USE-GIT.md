@@ -58,6 +58,9 @@ git reset --hard
 
 Ouf !
 
+Le mot d'ordre à propos des EOL : **ne pas se compliquer la vie** (je commence à apprendre que 
+de manière générale c'est valable pour à peu près tout.').
+
 Cf : [la configuration de Git](http://git-scm.com/book/fr/v1/Personnalisation-de-Git-Configuration-de-Git).
 
 Effectuer des commits
