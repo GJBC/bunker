@@ -25,6 +25,9 @@ git config --global core.editor vim
 git config --global core.editor "notepad++ -multiInst -notabbar -nosession -noPlugin"
 ```
 
+Si l'avantage de Vim est la coloration qui nous avertit d'un débordement, 
+Notepad++ peut se révéler très pratique pour vérifier la taille des lignes.
+
 **Configurer la gestion automatique des EOL :**
 ```bash
 git config --global core.autocrlf input
@@ -118,6 +121,13 @@ Options :
 git commit -am "Fix bug #13546"
 ```
 
+:exclamation: Éviter tout de même l'argument `-m`, mène généralement à de mauvais messages de 
+commits. Cf les [propos de Torvalds lui-même](https://github.com/torvalds/linux/pull/17#issuecomment-5659933). 
+Les règles pour de bons messages de commits sont décrites dans l'incontournable 
+[A Note About Git Commit Messages](tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) 
+de Tim Pope. Voir également cet excellent article, clair et simple, idéal à retenir et appliquer : 
+[5 Useful Tips For A Better Commit Message](https://robots.thoughtbot.com/5-useful-tips-for-a-better-commit-message).
+
 **Tagger un commit :**
 ```bash
 git tag v1.3 2f7c8b
@@ -131,13 +141,19 @@ git tag -d v0.7.14
 **Mettre de côté son Working Directory :**
 ```bash
 git stash
-git stash show
 ```
 Particulièrement utile pour changer de branche au milieu d'un travail en cours, pas prêt pour être commité. 
 Pour récupérer les changements :
 ```bash
 git stash apply
 ```
+
+`git stash` est un set de commande qui permet de gérer la pile de *stash*. On a par exemple :
+- `git stash show [<stash>]` Montrer le <stash>.
+- `git stash list` Lister les *stash*.
+- `git stash drop [<stash>]` Supprimer le <stash>.
+- `git stash pop [<stash>]` Effectue `git stash apply [<stash>]` > `git stash drop [<stash>]`.
+- `git stash clear` Supprime tous les *stash*.
 
 Partager le repo
 ----------------
@@ -268,6 +284,15 @@ Modes :
 **Récupérer l'état d'un fichier d'un commit passé :**
 ```bash
 git checkout HEAD~7 script.js
+```
+
+**Retrouver un état du repo :**
+`git reflog` est un set de commandes permettant de gérer la pile des états du repo. 
+Combiné à `git reset`, on peut ainsi annuler des manipulations ayant mal tournées 
+(un `git rebase` incontrolable, etc. ;)
+```bash
+git reflog
+git reset --hard HEAD@{1}
 ```
 
 Travailler avec les branches
@@ -462,6 +487,13 @@ Voici quelques détails sur les signatures de certaines commandes très versatil
 	Les suffixes peuvent bien sûr s'enchaîner.
 - **pathspec** : sélecteur d'un ou plusieurs blobs (ensemble de paths, tout simplement). 
 Exemples : `dir/file.md`, `dir/HOW-*`, `*/vendor/*`, `*.js`.
+
+Il faut bien comprendre également que la référence HEAD est comme un 'curseur' de navigation, 
+et qu'elle pointe normalement sur une branche et donc sur un commit (puisqu'une branche pointe 
+elle-même sur un commit), sauf en mode `DETACHED HEAD` où elle ne pointe que sur un commit, 
+mais également sur un état du repo (au sens de `git reflog`). La pile *reflog* est donc en 
+quelque sorte l'historique de tous les états passés de HEAD, tandis que *log* est l'historique 
+des commits.
 
 ### `git checkout`
 
