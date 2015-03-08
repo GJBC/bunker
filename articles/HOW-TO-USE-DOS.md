@@ -106,6 +106,11 @@ help path
 Pas besoin du mot de passe admin !! (Une faille dans le système, hum... Je me demande s'il y en a d'autres. En tout cas super pratique !)
 Dans le même genre existe la commande `set` pour définir des variables d'environnement.
 
+**Créer un lien symbolique : oui, c'est possible sous Windows !**
+```bash
+mklink /J web\bundles\zzchezzzortell src\Zz\ChezZzortellBundle\Resources\public 
+```
+
 **Afficher la version de Windows :**
 ```bash
 ver
