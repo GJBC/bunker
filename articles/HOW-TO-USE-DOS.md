@@ -1,7 +1,7 @@
 How to use DOS
 ==============
 
-:question: [Utiliser PHP en ligne de commande (Documentation)].
+:question: [Utiliser PHP en ligne de commande (Documentation)](http://php.net/manual/fr/features.commandline.php).
 
 Ouvrir un prompt DOS
 --------------------
