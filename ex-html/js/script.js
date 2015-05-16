@@ -1,16 +1,18 @@
-var my_array = [];
+// Je récupère l'objet html
+var body = document.getElementsByTagName('body')[0];
 
-var car = new Object;
-car.position = 0;
-car.move = function ( vitesse ) {
-	this.position += vitesse;
-};
+// Je crée mon nouveau paragraphe
+var myParagraph = document.createElement('p');
+// Je lui rajoute des attributs
+myParagraph.id = 'myId';
+myParagraph.title = 'Infobulle !';
 
-for (var i=0; i<2; i++) {
-	vitesse = 3;
-	
-	car.move( vitesse );
-	car.comeback( vitesse );
-}
+// Je crée un noeud textuel
+var noeudText = document.createTextNode('#text');
+// Je lui définis un du texte
+noeudText.nodeValue = 'Je suis un paragraphe ajouté dynamiquement en Js !';
+// J'insère mon noeud textuel
+myParagraph.appendChild(noeudText);
 
-console.log ( car.position );
+// Je l'insère
+body.appendChild(myParagraph);

@@ -42,7 +42,7 @@ p {
 }
 
 p img#interrog {
-	/* J'impose une taille précise à mon image. 
+	/* J'impose une taille précise à mon image.
 	Ne jamais imposer une taille plus grande que la taille réelle, sous peine de pixeliser l'image. */
 	height: 60px;
 	width: 60px;
