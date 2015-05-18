@@ -14,7 +14,7 @@ if ( confirm('Voulez-vous des glaces ?') ) {
 	
 	do {
 		payment = parseFloat( prompt('Mettez vos pièces.' + '\n' + priceDisplaying) );
-	} while ( payment === null )
+	} while ( isNaN(payment) );
 	
 	while ( payment < price ) {
 		var complement;
