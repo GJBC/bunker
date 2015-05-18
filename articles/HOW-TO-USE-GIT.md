@@ -28,6 +28,16 @@ git config --global core.editor "notepad++ -multiInst -notabbar -nosession -noPl
 Si l'avantage de Vim est la coloration qui nous avertit d'un débordement, 
 Notepad++ peut se révéler très pratique pour vérifier la taille des lignes.
 
+**Configurer la mise en cache automatique des mots de passe :**
+```bash
+git config --global credential.helper cache
+```
+
+Pour changer le timeout par défaut :
+```bash
+git config --global credential.helper 'cache --timeout=3600'
+```
+
 **Configurer la gestion automatique des EOL :**
 ```bash
 git config --global core.autocrlf input
