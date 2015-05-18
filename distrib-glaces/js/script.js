@@ -2,14 +2,26 @@
 
 var glaces_container = document.getElementById('glaces_container');
 
-while ( confirm('Voulez-vous des glaces ?') ) {
-	priceDisplaying = 'Prix : 1.20 € /glaces, 0.90 € /glaces à partir de 5 glaces.'
-	nb = parseInt( prompt('Combien en voulez-vous ?' + '\n' + priceDisplaying) );
+if ( confirm('Voulez-vous des glaces ?') ) {
+	var priceDisplaying = 'Prix : 1.20 € /glaces, 0.90 € /glaces à partir de 5 glaces.',
+		nb, price, payment;
+	
+	do {
+		nb = parseInt( prompt('Combien en voulez-vous ?' + '\n' + priceDisplaying) );
+	} while ( isNaN(nb) );
+	
 	price = nb >= 5 ? 1.2*nb : 0.9*nb;
-	payment = parseFloat( prompt('Mettez vos pièces.' + '\n' + priceDisplaying) );
+	
+	do {
+		payment = parseFloat( prompt('Mettez vos pièces.' + '\n' + priceDisplaying) );
+	} while ( payment === null )
 	
 	while ( payment < price ) {
-		payment += parseFloat( prompt('Il reste ' + (price-payment) + ' € à payer.') );
+		var complement;
+		do {
+			complement = parseFloat( prompt('Il reste ' + (price-payment) + ' € à payer.') );
+		} while ( isNaN(complement) );
+		payment += complement;
 	}
 	
 	if ( payment > price ) {
