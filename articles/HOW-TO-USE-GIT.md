@@ -459,6 +459,7 @@ fusionner une branche secondaire dans la branche principale. Utiliser dans ce ca
 de commits locaux sur la branche principale.
 
 Cf : [Git Attitude : Bien utiliser git merge et rebase](http://www.git-attitude.fr/2014/05/04/bien-utiliser-git-merge-et-rebase/).
+Un diapo sur la question tellement génial que je l'ajoute : http://webadeo.github.io/git-simpler-better-faster-stronger/
 
 Le .gitignore
 -------------
