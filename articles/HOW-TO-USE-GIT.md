@@ -500,7 +500,7 @@ Voici quelques détails sur les signatures de certaines commandes très versatil
 
 	Il peut être complété par un suffixe de spécification relative :
 	- une date : `@{yesterday}`, `@{1 month ago}`,
-	- un sélecteur ordinal : `@{5}` (soit la 5e référence avant celle explicitée), (? rapport avec `git reflog` ?)
+	- un sélecteur ordinal : `@{5}` (soit la 5e référence avant celle explicitée), (`git reflog`)
 	- un sélecteur ancestral : `~2` ou `^^` (soit le 2e parent de la référence),
 	- un pointeur de commit : `^{tree}` (récupère le sha correspondant à la référence),
 	- un sélecteur de blob : `:/chemin/vers/le/fichier`.
